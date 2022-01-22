@@ -1,5 +1,3 @@
-use std::error::Error;
-use std::io::{stderr, Write};
 use std::path::PathBuf;
 
 mod document_parser;
