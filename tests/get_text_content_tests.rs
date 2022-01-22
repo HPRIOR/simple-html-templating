@@ -3,21 +3,22 @@ extern crate core;
 use std::path::PathBuf;
 
 use html_templating_lib::io::*;
-use html_templating_lib::io::blog_post::BlogPost;
+use html_templating_lib::shared::enums::HtmlInit;
+use html_templating_lib::shared::structs::HtmlPage;
 
 #[test]
 pub fn will_return_text_content_struct() {
     let result = get_text_content(PathBuf::from("tests/resources/test_content"));
-    let content_one = BlogPost { name: String::from("text_content_one"), content: String::from("test content one") };
-    let content_two = BlogPost { name: String::from("text_content_two"), content: String::from("test content two") };
-    let expected = vec![content_one, content_two];
+    let content_one = HtmlPage { name: String::from("text_content_one"), content: String::from("test content one") };
+    let content_two = HtmlPage { name: String::from("text_content_two"), content: String::from("test content two") };
+    let expected = vec![HtmlInit::Of(content_one), HtmlInit::Of(content_two)];
     assert_eq!(result.unwrap(), expected)
 }
 
 #[test]
 pub fn will_return_empty_list_with_empty_dir() {
     let result = get_text_content(PathBuf::from("tests/resources/empty_test_content"));
-    let expected: Vec<BlogPost> = vec![];
+    let expected: Vec<HtmlInit> = vec![];
     assert_eq!(result.unwrap(), expected)
 }
 

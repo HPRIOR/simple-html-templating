@@ -1,5 +1,6 @@
 #[derive(Debug, PartialEq, PartialOrd)]
-pub struct BlogPost{
+pub struct HtmlPage {
     pub name: String,
-    pub content: String
+    pub content: String,
 }
+

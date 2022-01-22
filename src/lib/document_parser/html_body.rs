@@ -1,27 +1,11 @@
-#[derive(Debug, PartialOrd, PartialEq)]
-pub struct HtmlBody {
-    name: String,
-    content: String,
-}
+use crate::shared::enums::HtmlBody;
+use crate::shared::enums::HtmlBody::Of;
+use crate::shared::structs::HtmlPage;
 
-impl HtmlBody {
-    pub fn new(name: String, content: &String) -> Self {
-        Self {
-            name,
-            content: parse_content(&content),
-        }
-    }
-    pub fn get_content(&self) -> &String {
-        &self.content
-    }
-    pub fn get_name(&self) -> &String {
-        &self.name
-    }
-}
-
-fn parse_content(content: &String) -> String {
+pub fn parse_content(name: String, content: &String) -> HtmlBody {
     let paragraphs = get_paragraphs_from(&content);
-    wrap(&paragraphs, inject_css).join("")
+    let html_pg = HtmlPage { name, content: wrap(&paragraphs, inject_css).join("") };
+    Of(html_pg)
 }
 
 fn get_paragraphs_from(content: &String) -> Vec<String> {
@@ -47,7 +31,7 @@ fn inject_css() -> String {
 #[cfg(test)]
 mod tests {
     mod get_paragraphs_from {
-        use crate::document_parser::html_fragment::get_paragraphs_from;
+        use crate::document_parser::html_body::get_paragraphs_from;
 
         #[test]
         fn will_split_by_double_line_break() {
@@ -77,7 +61,7 @@ mod tests {
     }
 
     mod wrap {
-        use crate::document_parser::html_fragment::wrap;
+        use crate::document_parser::html_body::wrap;
 
         #[test]
         fn will_wrap_simple_paragraphs() {
@@ -107,21 +91,6 @@ mod tests {
             let result = wrap(&arg, || String::from("att"));
             let expected = vec![String::from("<p att>1</p>"), String::from("<p att>2</p>")];
             assert_eq!(result, expected)
-        }
-    }
-
-    mod html_body {
-        use crate::document_parser::html_fragment::HtmlBody;
-
-        #[test]
-        fn will_be_constructed_from_document() {
-            let content =
-                String::from("this is a string \nthis is another line \n\nthis is a new paragraph");
-            let html_obj = HtmlBody::new("test".to_owned(), &content);
-            let expected = String::from(
-                "<p >this is a string \nthis is another line </p><p >this is a new paragraph</p>",
-            );
-            assert_eq!(html_obj.get_content(), &expected)
         }
     }
 }

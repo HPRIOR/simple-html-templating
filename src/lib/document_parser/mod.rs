@@ -1,14 +1,16 @@
-use crate::document_parser::html_fragment::HtmlBody;
-use crate::io::blog_post::BlogPost;
+use crate::document_parser::html_body::parse_content;
+use crate::shared::enums::{HtmlBody, HtmlInit};
+use crate::shared::structs::HtmlPage;
 
-mod html_fragment;
+pub mod html_body;
 
 
-pub fn parse_documents(documents: &Vec<BlogPost>) -> Vec<HtmlBody> {
+pub fn parse_documents(documents: &Vec<HtmlInit>) -> Vec<HtmlBody> {
     documents
         .iter()
+        .map(|init| match init { HtmlInit::Of(h) => { h } })
         .map(|bp| {
-            HtmlBody::new(bp.name.clone(), &bp.content)
+            parse_content(bp.name.clone(), &bp.content)
         })
         .collect()
 }
@@ -16,23 +18,27 @@ pub fn parse_documents(documents: &Vec<BlogPost>) -> Vec<HtmlBody> {
 #[cfg(test)]
 mod tests {
     use crate::document_parser::parse_documents;
-    use crate::io::blog_post::BlogPost;
+    use crate::shared::enums::{HtmlBody, HtmlInit};
+    use crate::shared::enums::HtmlBody::Of;
+    use crate::shared::structs::HtmlPage;
 
     #[test]
     fn parse_documents_will_produce_correct_html_bodies() {
-        let blog_post_one = BlogPost {
+        let blog_post_one = HtmlPage {
             name: String::from("blog_one"),
             content: String::from("line_one\nline_two\n\npara_two"),
         };
-        let blog_post_two = BlogPost {
+        let blog_post_two = HtmlPage {
             name: String::from("blog_two"),
             content: String::from("line_one\nline_two\n\npara_two\nline_two\n\npara_three"),
         };
-        let input = vec![blog_post_one, blog_post_two];
+        let input = vec![HtmlInit::Of(blog_post_one), HtmlInit::Of(blog_post_two)];
         let result: Vec<String> =
             parse_documents(&input)
                 .into_iter()
-                .map(|html| html.get_content().clone())
+                .map(|html| {
+                    match html { Of(html_page) => html_page.content }
+                })
                 .collect();
 
         let html_body_one =
@@ -47,19 +53,21 @@ mod tests {
 
     #[test]
     fn parse_documents_will_produce_correct_name() {
-        let blog_post_one = BlogPost {
+        let blog_post_one = HtmlPage {
             name: String::from("blog_one"),
             content: String::from("line_one\nline_two\n\npara_two"),
         };
-        let blog_post_two = BlogPost {
+        let blog_post_two = HtmlPage {
             name: String::from("blog_two"),
             content: String::from("line_one\nline_two\n\npara_two\nline_two\n\npara_three"),
         };
-        let input = vec![blog_post_one, blog_post_two];
+        let input = vec![HtmlInit::Of(blog_post_one), HtmlInit::Of(blog_post_two)];
         let result: Vec<String> =
             parse_documents(&input)
                 .into_iter()
-                .map(|html| html.get_name().clone())
+                .map(|html| {
+                    match html { Of(html_page) => html_page.name }
+                })
                 .collect();
 
         let html_name_one =
