@@ -1,7 +1,5 @@
 use std::fs;
 
-mod document_parser;
-
 fn replace_template_body(body_str: &str, template_str: &str) -> String {
     template_str.replace("#body#", body_str)
 }
