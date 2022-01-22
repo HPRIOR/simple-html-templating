@@ -1,6 +1,5 @@
 use crate::document_parser::html_body::parse_content;
 use crate::shared::enums::{HtmlBody, HtmlInit};
-use crate::shared::structs::HtmlPage;
 
 pub mod html_body;
 
@@ -18,7 +17,7 @@ pub fn parse_documents(documents: &Vec<HtmlInit>) -> Vec<HtmlBody> {
 #[cfg(test)]
 mod tests {
     use crate::document_parser::parse_documents;
-    use crate::shared::enums::{HtmlBody, HtmlInit};
+    use crate::shared::enums::HtmlInit;
     use crate::shared::enums::HtmlBody::Of;
     use crate::shared::structs::HtmlPage;
 
