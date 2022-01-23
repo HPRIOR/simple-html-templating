@@ -17,8 +17,8 @@ pub fn parse_documents(documents: &Vec<HtmlInit>) -> Vec<HtmlBody> {
 #[cfg(test)]
 mod tests {
     use crate::document_parser::parse_documents;
-    use crate::shared::enums::HtmlInit;
     use crate::shared::enums::HtmlBody::Of;
+    use crate::shared::enums::HtmlInit;
     use crate::shared::structs::HtmlPage;
 
     #[test]
