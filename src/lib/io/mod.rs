@@ -32,3 +32,8 @@ pub fn get_text_content(dir: PathBuf) -> Result<Vec<HtmlInit>, Box<dyn Error>> {
     Ok(result)
 }
 
+
+pub fn get_template(dir: PathBuf) -> Result<String, Box<dyn Error>> {
+    Ok(fs::read_to_string(dir)?)
+}
+
