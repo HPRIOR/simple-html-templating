@@ -6,7 +6,7 @@ use std::path::PathBuf;
 
 use crate::document_parser::parse_documents;
 use crate::io::get_template;
-use crate::shared::enums::HtmlTemplate;
+use crate::shared::enums::HtmlFinal;
 use crate::template::attach_bodies_to_template;
 
 mod document_parser;
@@ -15,7 +15,7 @@ mod template;
 pub mod shared;
 
 pub fn lib(blog_dir: PathBuf, template_dir: PathBuf) -> Result<(), &'static str> {
-    let result =
+    let blog_posts =
         io::get_text_content(blog_dir)
             .map(|blog_posts| parse_documents(&blog_posts))
             .and_then(|html_body| {
