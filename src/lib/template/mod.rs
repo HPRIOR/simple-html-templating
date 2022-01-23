@@ -1,5 +1,4 @@
 use std::error::Error;
-use std::string::ParseError;
 
 use crate::shared::enums::{HtmlBody, HtmlTemplate};
 use crate::shared::errors::TemplateError;
@@ -24,7 +23,6 @@ mod tests {
     use std::error::Error;
 
     use crate::shared::enums::{HtmlBody, HtmlTemplate};
-    use crate::shared::errors::TemplateError;
     use crate::shared::structs::HtmlPage;
     use crate::template::attach_bodies_to_template;
 
@@ -49,7 +47,7 @@ mod tests {
         let result = attach_bodies_to_template(&vec![HtmlBody::Of(body)], &template);
         let expected = match result {
             Ok(_) => { "" }
-            Err(err) => { "error" }
+            Err(_err) => { "error" }
         };
         assert_eq!(expected, "error")
     }

@@ -1,10 +1,9 @@
 extern crate core;
 
-use std::error::Error;
+
 use std::path::PathBuf;
 
 use crate::document_parser::parse_documents;
-use crate::shared::enums::HtmlBody;
 use crate::template::attach_bodies_to_template;
 
 mod document_parser;
