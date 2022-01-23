@@ -4,6 +4,7 @@ use std::fs::DirEntry;
 use std::io::Read;
 use std::path::PathBuf;
 
+use crate::HtmlFinal;
 use crate::shared::enums::HtmlInit;
 use crate::shared::structs::HtmlPage;
 
@@ -35,5 +36,9 @@ pub fn get_text_content(dir: PathBuf) -> Result<Vec<HtmlInit>, Box<dyn Error>> {
 
 pub fn get_template(dir: PathBuf) -> Result<String, Box<dyn Error>> {
     Ok(fs::read_to_string(dir)?)
+}
+
+pub fn save_templates(dir: PathBuf, html: &Vec<HtmlFinal>) -> Result<(), Box<dyn Error>> {
+    panic!("")
 }
 
