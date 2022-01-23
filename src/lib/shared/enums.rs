@@ -7,6 +7,5 @@ pub enum HtmlInit { Of(HtmlPage) }
 pub enum HtmlBody { Of(HtmlPage) }
 
 #[derive(Debug, PartialEq, PartialOrd)]
-pub enum HtmlTemplate { Of(HtmlPage) }
+pub enum HtmlFinal { Of(HtmlPage) }
 
-pub enum HtmlCombined { Of(HtmlPage) }
