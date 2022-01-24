@@ -1,14 +1,14 @@
 use std::error::Error;
 
-use crate::HtmlFinal;
 use crate::html_generator::document_parser::parse_documents;
 use crate::html_generator::index_html::get_index_page;
 use crate::html_generator::template::attach_bodies_to_template;
+use crate::HtmlFinal;
 use crate::shared::enums::HtmlInit;
 
 mod index_html;
-pub mod template;
-pub mod document_parser;
+mod template;
+mod document_parser;
 
 pub fn generate_html(html_content: &Vec<HtmlInit>, template: &String) -> Result<Vec<HtmlFinal>, Box<dyn Error>> {
     let html_bodies = parse_documents(&html_content);
