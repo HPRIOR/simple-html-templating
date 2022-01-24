@@ -25,12 +25,6 @@ pub fn lib(blog_dir: PathBuf, template_dir: PathBuf) -> Result<(), &'static str>
                 }
             });
 
-    // todo
-    // index page with hrefs to each file -- use blog posts to generate hyperlinks - these can be used
-    // as files names and to embed into index file
-    // about page
-    // save files to desired directory - create directory if not exists - overwrite files in directory
-    // template file
 
     match blog_posts {
         Ok(_) => Ok(()),
