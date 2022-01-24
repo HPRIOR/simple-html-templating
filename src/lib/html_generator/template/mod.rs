@@ -1,13 +1,13 @@
 use std::error::Error;
 
 use crate::shared::enums::{HtmlBody, HtmlFinal};
-use crate::shared::errors::TemplateError;
+use crate::shared::errors::TemplateParseError;
 use crate::shared::structs::HtmlPage;
 
 pub fn attach_bodies_to_template(bodies: &Vec<HtmlBody>, template: &String) -> Result<Vec<HtmlFinal>, Box<dyn Error>> {
     let replacement_str = "!body!";
     if !template.contains(replacement_str) {
-        Err(Box::from(TemplateError))
+        Err(Box::from(TemplateParseError))
     } else {
         Ok(bodies.into_iter().map(|html_body| {
             let html = match html_body { HtmlBody::Of(html_page) => html_page };
@@ -22,9 +22,9 @@ pub fn attach_bodies_to_template(bodies: &Vec<HtmlBody>, template: &String) -> R
 mod tests {
     use std::error::Error;
 
+    use crate::html_generator::template::attach_bodies_to_template;
     use crate::shared::enums::{HtmlBody, HtmlFinal};
     use crate::shared::structs::HtmlPage;
-    use crate::template::attach_bodies_to_template;
 
     #[test]
     pub fn will_replace_string_in_single_page() {

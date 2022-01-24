@@ -1,14 +1,14 @@
 use std::error::Error;
 
 use crate::HtmlFinal;
-use crate::shared::errors::TemplateError;
+use crate::shared::errors::TemplateParseError;
 use crate::shared::structs::HtmlPage;
 
 pub fn get_index_page(template: &String, html_pages: &Vec<HtmlFinal>) -> Result<HtmlFinal, Box<dyn Error>> {
     let href_list = get_list_of_href(html_pages).join("");
     let template_replacement_str = "!body!";
     if !template.contains(template_replacement_str) {
-        return Err(Box::from(TemplateError));
+        return Err(Box::from(TemplateParseError));
     };
     Ok(
         HtmlFinal::Of(HtmlPage {
@@ -50,9 +50,9 @@ mod tests {
     }
 
     mod get_list_of_href {
+        use crate::html_generator::index_html::get_list_of_href;
+        use crate::html_generator::index_html::tests::get_html_input;
         use crate::HtmlFinal;
-        use crate::index_html::get_list_of_href;
-        use crate::index_html::tests::get_html_input;
         use crate::shared::structs::HtmlPage;
 
         #[test]
@@ -71,9 +71,9 @@ mod tests {
     mod get_index_page {
         use std::error::Error;
 
+        use crate::html_generator::index_html::get_index_page;
+        use crate::html_generator::index_html::tests::get_html_input;
         use crate::HtmlFinal;
-        use crate::index_html::get_index_page;
-        use crate::index_html::tests::get_html_input;
         use crate::shared::structs::HtmlPage;
 
         #[test]

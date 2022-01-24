@@ -31,7 +31,7 @@ fn inject_css() -> String {
 #[cfg(test)]
 mod tests {
     mod get_paragraphs_from {
-        use crate::document_parser::html_body::get_paragraphs_from;
+        use crate::html_generator::document_parser::html_body::get_paragraphs_from;
 
         #[test]
         fn will_split_by_double_line_break() {
@@ -61,7 +61,7 @@ mod tests {
     }
 
     mod wrap {
-        use crate::document_parser::html_body::wrap;
+        use crate::html_generator::document_parser::html_body::wrap;
 
         #[test]
         fn will_wrap_simple_paragraphs() {
