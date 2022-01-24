@@ -2,13 +2,11 @@ extern crate core;
 
 
 use std::error::Error;
-use std::io::ErrorKind::NotFound;
 use std::path::PathBuf;
 
 use crate::html_generator::generate_html;
 use crate::io::get_template;
 use crate::shared::enums::HtmlFinal;
-use crate::shared::errors::TemplateParseError;
 
 pub mod io;
 pub mod shared;

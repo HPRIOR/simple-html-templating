@@ -1,12 +1,10 @@
 use std::error::Error;
 
-use crate::{get_template, HtmlFinal, io};
+use crate::HtmlFinal;
 use crate::html_generator::document_parser::parse_documents;
 use crate::html_generator::index_html::get_index_page;
 use crate::html_generator::template::attach_bodies_to_template;
-use crate::io::save_templates;
 use crate::shared::enums::HtmlInit;
-use crate::shared::errors::TemplateParseError;
 
 mod index_html;
 pub mod template;

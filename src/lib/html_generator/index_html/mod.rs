@@ -52,8 +52,6 @@ mod tests {
     mod get_list_of_href {
         use crate::html_generator::index_html::get_list_of_href;
         use crate::html_generator::index_html::tests::get_html_input;
-        use crate::HtmlFinal;
-        use crate::shared::structs::HtmlPage;
 
         #[test]
         fn should_return_list_of_html_with_embedded_html_name() {
@@ -69,8 +67,6 @@ mod tests {
     }
 
     mod get_index_page {
-        use std::error::Error;
-
         use crate::html_generator::index_html::get_index_page;
         use crate::html_generator::index_html::tests::get_html_input;
         use crate::HtmlFinal;
