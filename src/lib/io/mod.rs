@@ -1,5 +1,5 @@
+use std::{fs, io};
 use std::error::Error;
-use std::fs;
 use std::fs::DirEntry;
 use std::io::Read;
 use std::path::PathBuf;
