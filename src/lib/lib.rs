@@ -12,7 +12,7 @@ pub mod io;
 pub mod shared;
 mod html_generator;
 
-pub fn lib(blog_dir: PathBuf, template_dir: PathBuf) -> Result<(), &'static str> {
+pub fn lib(blog_dir: PathBuf, template_dir: PathBuf, save_dir: PathBuf) -> Result<(), &'static str> {
     let html_files =
         io::get_text_content(blog_dir)
             .and_then(|blogs| {
@@ -20,13 +20,23 @@ pub fn lib(blog_dir: PathBuf, template_dir: PathBuf) -> Result<(), &'static str>
                 generate_html(&blogs, &template)
             });
 
-
-    match html_files {
-        Ok(_) => Ok(()),
-        Err(err) => Err(parse_errors(err))
+    if let Ok(html_files) = html_files {
+        let save_result = io::save_templates(save_dir, &html_files);
+        if let Ok(has_saved) = save_result {
+            Ok(has_saved)
+        } else {
+            //let err = save_result.err().unwrap();
+            //let error_msg = format!("failed to save content files: {}", err).to_string();
+            Err("error occurred saving html files")
+        }
+    } else {
+        match html_files {
+            Ok(_) => Ok(()),
+            Err(err) => Err(parse_errors(err))
+        }
     }
 }
 
 fn parse_errors(err: Box<dyn Error>) -> &'static str {
-    ""
+    ""//format!("An error has occurred: {}", err)
 }
