@@ -38,7 +38,12 @@ pub fn get_template(dir: PathBuf) -> Result<String, Box<dyn Error>> {
     Ok(fs::read_to_string(dir)?)
 }
 
-pub fn save_templates(dir: PathBuf, html: &Vec<HtmlFinal>) -> Result<(), Box<dyn Error>> {
-    panic!("")
+pub fn save_templates(dir: PathBuf, html: &Vec<HtmlFinal>) -> io::Result<()> {
+    let results: Vec<io::Result<()>> = html.into_iter().map(|h| {
+        let html_page = match h { HtmlFinal::Of(pg) => pg };
+        let save_path: PathBuf = [dir.to_str().unwrap(), html_page.name.clone().as_str()].iter().collect();
+        fs::write(save_path, &html_page.content)
+    }).collect();
+    results.into_iter().collect() // return result or first occurring error
 }
 
