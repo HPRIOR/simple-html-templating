@@ -12,7 +12,7 @@ pub mod io;
 pub mod shared;
 mod html_generator;
 
-pub fn lib(blog_dir: PathBuf, template_dir: PathBuf, save_dir: PathBuf) -> Result<(), &'static str> {
+pub fn lib(blog_dir: PathBuf, template_dir: PathBuf, save_dir: PathBuf) -> Result<(), String> {
     let html_files =
         io::get_text_content(blog_dir)
             .and_then(|blogs| {
@@ -37,6 +37,6 @@ pub fn lib(blog_dir: PathBuf, template_dir: PathBuf, save_dir: PathBuf) -> Resul
     }
 }
 
-fn parse_errors(err: Box<dyn Error>) -> &'static str {
-    ""//format!("An error has occurred: {}", err)
+fn parse_errors(err: Box<dyn Error>) -> String {
+    format!("An error has occurred: {}", err)
 }
