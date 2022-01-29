@@ -25,9 +25,9 @@ pub fn lib(blog_dir: PathBuf, template_dir: PathBuf, save_dir: PathBuf) -> Resul
         if let Ok(has_saved) = save_result {
             Ok(has_saved)
         } else {
-            //let err = save_result.err().unwrap();
-            //let error_msg = format!("failed to save content files: {}", err).to_string();
-            Err("error occurred saving html files")
+            let err = save_result.err().unwrap();
+            let error_msg = format!("Failed to save html files: {}", err);
+            Err(error_msg)
         }
     } else {
         match html_files {
