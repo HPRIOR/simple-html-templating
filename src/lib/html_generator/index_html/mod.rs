@@ -24,7 +24,7 @@ pub fn get_index_page(template: &String, html_pages: &Vec<HtmlFinal>) -> Result<
 fn get_list_of_href(html_pages: &Vec<HtmlFinal>) -> Vec<String> {
     html_pages.into_iter().map(|html| {
         let html_pg = match html { HtmlFinal::Of(html_pg) => html_pg };
-        format!("<li ><a href=\"{}.html\" ></a></li>", html_pg.name.clone())
+        format!("<li ><a href=\"{}.html\" >{}</a></li>", html_pg.name.clone(), html_pg.name.clone().replace('_', " "))
     }).collect()
 }
 
@@ -58,8 +58,8 @@ mod tests {
             let input = get_html_input();
             let result = get_list_of_href(&input);
             let expected = vec![
-                String::from("<li ><a href=\"html_page_one.html\" ></a></li>"),
-                String::from("<li ><a href=\"html_page_two.html\" ></a></li>"),
+                String::from("<li ><a href=\"html_page_one.html\" >html page one</a></li>"),
+                String::from("<li ><a href=\"html_page_two.html\" >html page two</a></li>"),
             ];
 
             assert_eq!(result, expected)
@@ -86,7 +86,7 @@ mod tests {
                     name: String::from("index"),
                     content: String::from(
                         "html <ul >\
-                        <li ><a href=\"html_page_one.html\" ></a></li><li ><a href=\"html_page_two.html\" ></a></li>\
+                        <li ><a href=\"html_page_one.html\" >html page one</a></li><li ><a href=\"html_page_two.html\" >html page two</a></li>\
                         </ul> template"
                     ),
                 });
