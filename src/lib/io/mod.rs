@@ -1,7 +1,6 @@
 use std::{fs, io};
 use std::error::Error;
 use std::fs::DirEntry;
-use std::io::Read;
 use std::path::PathBuf;
 
 use crate::HtmlFinal;
@@ -41,9 +40,15 @@ pub fn get_template(dir: PathBuf) -> Result<String, Box<dyn Error>> {
 pub fn save_html(dir: PathBuf, html: &Vec<HtmlFinal>) -> io::Result<()> {
     let results: Vec<io::Result<()>> = html.into_iter().map(|h| {
         let html_page = match h { HtmlFinal::Of(pg) => pg };
-        let save_path: PathBuf = [dir.to_str().unwrap(), html_page.name.clone().as_str()].iter().collect();
+        let save_path: PathBuf = [dir.to_str().unwrap(), get_file_name(html_page).as_str()].iter().collect();
         fs::write(save_path, &html_page.content)
     }).collect();
-    results.into_iter().collect() // return result or first occurring error
+    results.into_iter().collect() // return () or first occurring error
+}
+
+fn get_file_name(html: &HtmlPage) -> String {
+    let mut file_name = html.name.clone();
+    file_name.push_str(".html");
+    file_name
 }
 
