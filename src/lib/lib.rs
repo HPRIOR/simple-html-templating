@@ -32,11 +32,8 @@ pub fn lib(blog_dir: PathBuf, template_dir: PathBuf, save_dir: PathBuf) -> Resul
     } else {
         match html_files {
             Ok(_) => Ok(()),
-            Err(err) => Err(parse_errors(err))
+            Err(err) => Err(format!("An error has occurred: {}", err))
         }
     }
 }
 
-fn parse_errors(err: Box<dyn Error>) -> String {
-    format!("An error has occurred: {}", err)
-}
