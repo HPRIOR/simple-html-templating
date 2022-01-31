@@ -35,7 +35,7 @@ fn try_get_args(arg_list: Vec<&str>) -> Result<HashMap<&str, String>, String> {
 }
 
 fn main() {
-    let arg_result = match try_get_args(vec!["html_content", "template_file", "output_dir"]) {
+    let arg_result = match try_get_args(vec!["content_dir", "template_file", "output_dir", "ctx_file"]) {
         Ok(args) => args,
         Err(e) => {
             eprintln!("Missing args: {}", e);
@@ -44,9 +44,10 @@ fn main() {
     };
 
     let result = lib(
-        PathBuf::from(&arg_result["html_content"]),
+        PathBuf::from(&arg_result["content_dir"]),
         PathBuf::from(&arg_result["template_file"]),
         PathBuf::from(&arg_result["output_dir"]),
+        PathBuf::from(&arg_result["ctx_file"]),
     );
     match result {
         Ok(_) => {
