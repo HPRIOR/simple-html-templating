@@ -18,3 +18,6 @@ pub fn generate_html(html_content: &Vec<HtmlInit>, template: &String, ctx: &Cont
     html_pages.push(index_page);
     return Ok(html_pages)
 }
+
+// TODO create a html injector which takes in the context and injects html into the relevant places
+// instead of passing around ctx
