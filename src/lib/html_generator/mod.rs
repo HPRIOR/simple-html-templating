@@ -14,7 +14,7 @@ mod document_parser;
 pub fn generate_html(html_content: &Vec<HtmlInit>, template: &String, ctx: &Context) -> Result<Vec<HtmlFinal>, Box<dyn Error>> {
     let html_bodies = parse_documents(&html_content, ctx);
     let mut html_pages: Vec<HtmlFinal> = attach_bodies_to_template(&html_bodies, template)?;
-    let index_page = get_index_page(&template, &html_pages)?;
+    let index_page = get_index_page(&template, &html_pages, ctx)?;
     html_pages.push(index_page);
     return Ok(html_pages)
 }
