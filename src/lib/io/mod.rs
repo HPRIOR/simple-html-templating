@@ -5,7 +5,7 @@ use std::path::PathBuf;
 
 use crate::HtmlFinal;
 use crate::shared::enums::HtmlInit;
-use crate::shared::structs::HtmlPage;
+use crate::shared::structs::{Context, HtmlPage};
 
 fn get_file_name_from_entry(entry: &DirEntry) -> String {
     String::from(
@@ -52,3 +52,8 @@ fn get_file_name(html: &HtmlPage) -> String {
     file_name
 }
 
+pub fn get_context(context_path: PathBuf) -> Result<Context, Box<dyn Error>> {
+    let context_string = fs::read_to_string(context_path)?;
+    let context: Context = serde_json::from_str(context_string.as_str())?;
+    Ok(context)
+}

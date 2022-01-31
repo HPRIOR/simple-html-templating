@@ -1,10 +1,10 @@
 use crate::shared::enums::HtmlBody;
 use crate::shared::enums::HtmlBody::Of;
-use crate::shared::structs::HtmlPage;
+use crate::shared::structs::{Context, HtmlPage};
 
-pub fn parse_content(name: String, content: &String) -> HtmlBody {
+pub fn parse_content(name: String, content: &String, context: &Context) -> HtmlBody {
     let paragraphs = get_paragraphs_from(&content);
-    let html_pg = HtmlPage { name, content: wrap(&paragraphs, inject_css).join("") };
+    let html_pg = HtmlPage { name, content: wrap(&paragraphs, context.paragraph_css.clone()).join("") };
     Of(html_pg)
 }
 
@@ -17,16 +17,13 @@ fn get_paragraphs_from(content: &String) -> Vec<String> {
         .collect()
 }
 
-fn wrap(paras: &Vec<String>, with: fn() -> String) -> Vec<String> {
+fn wrap(paras: &Vec<String>, para_css: String) -> Vec<String> {
     paras
         .iter()
-        .map(|s| format!("<p {}>{}</p>", with(), s))
+        .map(|s| format!("<p {}>{}</p>", para_css, s))
         .collect()
 }
 
-fn inject_css() -> String {
-    "".to_owned()
-}
 
 #[cfg(test)]
 mod tests {
@@ -66,7 +63,7 @@ mod tests {
         #[test]
         fn will_wrap_simple_paragraphs() {
             let arg: Vec<String> = vec![String::from("1"), String::from("2")];
-            let result = wrap(&arg, || String::from(""));
+            let result = wrap(&arg, String::from(""));
             let expected = vec![String::from("<p >1</p>"), String::from("<p >2</p>")];
             assert_eq!(result, expected)
         }
@@ -77,7 +74,7 @@ mod tests {
                 String::from("line_one\nline_two"),
                 String::from("para_two\nline_two"),
                 String::from("para_three")];
-            let result = wrap(&arg, || String::from(""));
+            let result = wrap(&arg, String::from(""));
             let expected = vec![
                 String::from("<p >line_one\nline_two</p>"),
                 String::from("<p >para_two\nline_two</p>"),
@@ -88,7 +85,7 @@ mod tests {
         #[test]
         fn will_inject_node_() {
             let arg: Vec<String> = vec![String::from("1"), String::from("2")];
-            let result = wrap(&arg, || String::from("att"));
+            let result = wrap(&arg, String::from("att"));
             let expected = vec![String::from("<p att>1</p>"), String::from("<p att>2</p>")];
             assert_eq!(result, expected)
         }

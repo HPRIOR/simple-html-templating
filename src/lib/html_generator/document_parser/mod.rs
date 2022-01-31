@@ -1,15 +1,16 @@
 use crate::html_generator::document_parser::html_body::parse_content;
 use crate::shared::enums::{HtmlBody, HtmlInit};
+use crate::shared::structs::Context;
 
 pub mod html_body;
 
 
-pub fn parse_documents(documents: &Vec<HtmlInit>) -> Vec<HtmlBody> {
+pub fn parse_documents(documents: &Vec<HtmlInit>, ctx: &Context) -> Vec<HtmlBody> {
     documents
         .iter()
         .map(|init| match init { HtmlInit::Of(h) => { h } })
         .map(|bp| {
-            parse_content(bp.name.clone(), &bp.content)
+            parse_content(bp.name.clone(), &bp.content, ctx)
         })
         .collect()
 }
@@ -19,7 +20,7 @@ mod tests {
     use crate::html_generator::document_parser::parse_documents;
     use crate::shared::enums::HtmlBody::Of;
     use crate::shared::enums::HtmlInit;
-    use crate::shared::structs::HtmlPage;
+    use crate::shared::structs::{Context, HtmlPage};
 
     #[test]
     fn parse_documents_will_produce_correct_html_bodies() {
@@ -32,8 +33,13 @@ mod tests {
             content: String::from("line_one\nline_two\n\npara_two\nline_two\n\npara_three"),
         };
         let input = vec![HtmlInit::Of(blog_post_one), HtmlInit::Of(blog_post_two)];
+        let ctx = Context {
+            list_css: "".to_string(),
+            title_css: "".to_string(),
+            paragraph_css: "".to_string(),
+        };
         let result: Vec<String> =
-            parse_documents(&input)
+            parse_documents(&input, &ctx)
                 .into_iter()
                 .map(|html| {
                     match html { Of(html_page) => html_page.content }
@@ -61,8 +67,13 @@ mod tests {
             content: String::from("line_one\nline_two\n\npara_two\nline_two\n\npara_three"),
         };
         let input = vec![HtmlInit::Of(blog_post_one), HtmlInit::Of(blog_post_two)];
+        let ctx = Context {
+            list_css: "".to_string(),
+            title_css: "".to_string(),
+            paragraph_css: "".to_string(),
+        };
         let result: Vec<String> =
-            parse_documents(&input)
+            parse_documents(&input, &ctx)
                 .into_iter()
                 .map(|html| {
                     match html { Of(html_page) => html_page.name }
