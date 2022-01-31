@@ -29,7 +29,9 @@ fn try_get_args(arg_list: Vec<&str>) -> Result<HashMap<&str, String>, String> {
             .enumerate()
             .fold(
                 String::from(""),
-                |a, b| format!("{}\n{}. {}", a, b.0 + 1, b.1.replace("_", " ")))
+                |a, b|
+                    format!("{}\n{}. {}", a, b.0 + 1, b.1.replace("_", " ")),
+            )
         )
     }
 }
