@@ -16,7 +16,7 @@ pub fn generate_html(html_content: &Vec<HtmlInit>, template: &String, ctx: &Cont
     let mut html_pages: Vec<HtmlFinal> = attach_bodies_to_template(&html_bodies, template)?;
     let index_page = get_index_page(&template, &html_pages, ctx)?;
     html_pages.push(index_page);
-    return Ok(html_pages)
+    Ok(html_pages)
 }
 
 // TODO create a html injector which takes in the context and injects html into the relevant places
