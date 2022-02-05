@@ -1,5 +1,6 @@
 {
-  "list_css": "list_css",
+  "li_css": "li_css",
+  "ul_css": "ul_css",
   "title_css": "title_css",
   "paragraph_css": "paragraph_css"
 }
