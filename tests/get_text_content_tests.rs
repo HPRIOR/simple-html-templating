@@ -24,3 +24,4 @@ pub fn will_return_error_if_wrong_path() {
     };
     assert_eq!(result, "error");
 }
+
