@@ -34,7 +34,8 @@ mod tests {
         };
         let input = vec![HtmlInit::Of(blog_post_one), HtmlInit::Of(blog_post_two)];
         let ctx = Context {
-            list_css: "".to_string(),
+            li_css: "".to_string(),
+            ul_css: "".to_string(),
             title_css: "".to_string(),
             paragraph_css: "".to_string(),
         };
@@ -68,7 +69,8 @@ mod tests {
         };
         let input = vec![HtmlInit::Of(blog_post_one), HtmlInit::Of(blog_post_two)];
         let ctx = Context {
-            list_css: "".to_string(),
+            ul_css: "".to_string(),
+            li_css: "".to_string(),
             title_css: "".to_string(),
             paragraph_css: "".to_string(),
         };

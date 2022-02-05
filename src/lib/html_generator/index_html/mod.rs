@@ -15,7 +15,7 @@ pub fn get_index_page(template: &String, html_pages: &Vec<HtmlFinal>, ctx: &Cont
             name: String::from("index"),
             content: template.replace(
                 template_replacement_str,
-                format!("<ul {}>{}</ul>", ctx.list_css, href_list).as_str(),
+                format!("<ul {}>{}</ul>", ctx.ul_css, href_list).as_str(),
             ),
         })
     )
@@ -24,7 +24,7 @@ pub fn get_index_page(template: &String, html_pages: &Vec<HtmlFinal>, ctx: &Cont
 fn get_list_of_href(html_pages: &Vec<HtmlFinal>, ctx: &Context) -> Vec<String> {
     html_pages.into_iter().map(|html| {
         let html_pg = match html { HtmlFinal::Of(html_pg) => html_pg };
-        format!("<li {}><a href=\"{}.html\" >{}</a></li>", ctx.list_css, html_pg.name.clone(), html_pg.name.clone().replace('_', " "))
+        format!("<li {}><a href=\"{}.html\" >{}</a></li>", ctx.li_css, html_pg.name.clone(), html_pg.name.clone().replace('_', " "))
     }).collect()
 }
 
@@ -51,7 +51,8 @@ mod tests {
 
     fn get_ctx() -> Context {
         Context {
-            list_css: "".to_string(),
+            li_css: "".to_string(),
+            ul_css: "".to_string(),
             title_css: "".to_string(),
             paragraph_css: "".to_string(),
         }

@@ -8,7 +8,8 @@ pub struct HtmlPage {
 
 #[derive(Deserialize, Serialize)]
 pub struct Context {
-    pub list_css: String,
+    pub ul_css: String,
+    pub li_css: String,
     pub title_css: String,
     pub paragraph_css: String,
 }
