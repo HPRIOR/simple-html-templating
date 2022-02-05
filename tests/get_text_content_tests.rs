@@ -15,12 +15,6 @@ pub fn will_return_text_content_struct() {
     assert_eq!(result.unwrap(), expected)
 }
 
-#[test]
-pub fn will_return_empty_list_with_empty_dir() {
-    let result = get_text_content(PathBuf::from("tests/resources/empty_test_content"));
-    let expected: Vec<HtmlInit> = vec![];
-    assert_eq!(result.unwrap(), expected)
-}
 
 #[test]
 pub fn will_return_error_if_wrong_path() {
