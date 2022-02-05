@@ -18,7 +18,9 @@ pub fn will_return_text_content_struct() {
 
 #[test]
 pub fn will_return_error_if_wrong_path() {
-    let result = match get_text_content(PathBuf::from("")) {
+    let result = match get_t
+    ext_content(PathBuf::from(""))
+    {
         Ok(_) => "_",
         Err(_) => "error"
     };
